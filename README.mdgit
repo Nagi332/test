@@ -1,0 +1,2 @@
+# AsanoNagi20250616 initgit add README.mdgit commit -m first commitgit branch -M maingit remote add origin https://github.com/Nagi332/AsanoNagi20250616.gitgit push -u origin main
+# test initgit add README.mdgit commit -m first commitgit branch -M maingit remote add origin https://github.com/Nagi332/test.gitgit push -u origin main

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>コーヒーメーカーUI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="coffee-panel">
+    <div class="display" id="display">
+      種類を選んでください。
+    </div>
+    <div class="button-row">
+      <div class="indicator active"></div>
+      <div class="button-group">
+        <div class="label">BLACK</div>
+        <div class="label right">LATTE</div>
+        <button class="round-btn"></button>
+        <button class="round-btn"></button>
+      </div>
+    </div>
+    <div class="button-row">
+      <div class="indicator"></div>
+      <div class="button-group">
+        <div class="label">HOT</div>
+        <div class="label right">ICE</div>
+        <button class="round-btn"></button>
+        <button class="round-btn"></button>
+      </div>
+    </div>
+    <div class="button-row">
+      <div class="indicator"></div>
+      <div class="button-group">
+        <div class="label">Regular</div>
+        <div class="label right">Large</div>
+        <button class="round-btn"></button>
+        <button class="round-btn"></button>
+      </div>
+    </div>
+    <div class="button-row">
+      <div class="indicator"></div>
+      <div class="three-group">
+        <div class="labels-row">
+          <span class="label jp">薄</span>
+          <span class="label jp center">中</span>
+          <span class="label jp right">濃</span>
+        </div>
+        <div class="button-group three">
+          <button class="round-btn"></button>
+          <button class="round-btn"></button>
+          <button class="round-btn"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // filepath: /Users/nagi/Desktop/25年度/25年度前期/2-3プロトタイピング基礎/24144076/coffee_ui.html
+    const buttonRows = Array.from(document.querySelectorAll('.button-row'));
+    const groups = buttonRows.map(row => row.querySelector('.button-group, .button-group.three'));
+    const indicators = buttonRows.map(row => row.querySelector('.indicator'));
+    const display = document.getElementById('display');
+
+    // 表示内容（括弧内の文章を削除）
+    const displayTexts = [
+      '種類を選んでください。',
+      '温度を選んでください。',
+      'サイズを選んでください。',
+      '濃さを選んでください。'
+    ];
+
+    let isLatte = false; // ラテ選択フラグ
+
+    // 最初のグループ以外はボタンを無効化
+    groups.forEach((group, idx) => {
+      if (idx !== 0) {
+        group.querySelectorAll('.round-btn').forEach(btn => btn.disabled = true);
+      }
+    });
+    // 最初のインジケータだけ赤点灯
+    indicators.forEach((ind, idx) => {
+      if (idx === 0) {
+        ind.classList.add('active');
+      } else {
+        ind.classList.remove('active');
+      }
+    });
+    // 最初の表示
+    display.textContent = displayTexts[0];
+
+    groups.forEach((group, groupIdx) => {
+      group.addEventListener('click', function(e) {
+        if (e.target.classList.contains('round-btn')) {
+          // 既に押されたボタンは何もしない
+          if (e.target.classList.contains('glow')) return;
+          // 同じグループ内の他のボタンのglowを外す
+          group.querySelectorAll('.round-btn').forEach(btn => btn.classList.remove('glow'));
+          // 今回押したボタンだけ光らせる
+          e.target.classList.add('glow');
+          // ボタンを無効化
+          e.target.disabled = true;
+          // グループ内の他のボタンも無効化
+          group.querySelectorAll('.round-btn').forEach(btn => {
+            if (btn !== e.target) btn.disabled = true;
+          });
+
+          // ラテ選択判定（最初のグループのみ）
+          if (groupIdx === 0) {
+            // 右側（2番目）のボタンがラテ
+            isLatte = Array.from(group.querySelectorAll('.round-btn')).indexOf(e.target) === 1;
+          }
+
+          // ラテ選択時は濃さグループをスキップ
+          if (isLatte && groupIdx === 2) {
+            // 濃さボタンを無効化
+            if (groups[3]) {
+              groups[3].querySelectorAll('.round-btn').forEach(btn => {
+                btn.disabled = true;
+                btn.classList.remove('glow');
+              });
+            }
+            // ランプの制御
+            if (indicators[groupIdx]) indicators[groupIdx].classList.remove('active');
+            if (indicators[groupIdx + 1]) indicators[groupIdx + 1].classList.remove('active');
+            // 表示の更新
+            display.textContent = '選択が完了しました。';
+            return;
+          }
+
+          // 次のグループのボタンを有効化
+          if (groups[groupIdx + 1]) {
+            groups[groupIdx + 1].querySelectorAll('.round-btn').forEach(btn => btn.disabled = false);
+          }
+          // ランプの制御
+          if (indicators[groupIdx]) indicators[groupIdx].classList.remove('active');
+          if (indicators[groupIdx + 1]) indicators[groupIdx + 1].classList.add('active');
+          // 表示の更新
+          if (displayTexts[groupIdx + 1]) {
+            display.textContent = displayTexts[groupIdx + 1];
+          } else {
+            display.textContent = '選択が完了しました。';
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

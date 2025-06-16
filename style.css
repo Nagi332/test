@@ -1,0 +1,176 @@
+body {
+  background: #000;
+  margin: 0;
+  padding: 0;
+}
+
+.coffee-panel {
+  width: 500px;
+  height: 750px;
+  background: radial-gradient(ellipse at center, #d59a53 0%, #b06d29 100%);
+  border: 2px solid #000;
+  margin: 20px auto;
+  border-radius: 4px;
+  position: relative;
+  box-sizing: border-box;
+  padding-top: 60px;
+}
+
+.display {
+  width: 70%;
+  margin: 0 auto 40px auto;
+  background: #d2e3d2;
+  color: #111;
+  font-size: 1.3em;
+  text-align: center;
+  padding: 22px 0;
+  border-radius: 4px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 6px #bbb inset;
+}
+
+.button-row {
+  display: flex;
+  align-items: center;
+  margin: 32px 0 0 0;
+  justify-content: center;
+}
+
+.indicator {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  margin-right: 28px;
+  background: #fff;
+  border: 2px solid #a77;
+  box-shadow: 0 0 2px #000;
+  position: relative;
+  transition: background 0.2s, border 0.2s;
+}
+.indicator.active {
+  background: radial-gradient(circle at 60% 40%, #f00 60%, #900 100%);
+  border: 2px solid #900;
+}
+
+.button-group {
+  background: #181818;
+  border-radius: 40px;
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  min-width: 320px;
+  max-width: 320px;
+  min-height: 80px;
+  width: 320px;
+  box-shadow: 0 2px 8px #222 inset;
+  justify-content: space-between;
+}
+.button-group.three {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  min-width: 320px;
+  max-width: 320px;
+  width: 320px;
+  padding: 10px 10px;
+  background: #181818;
+  border-radius: 40px;
+  box-shadow: 0 2px 8px #222 inset;
+}
+
+.label {
+  position: absolute;
+  top: -28px;
+  left: 18px;
+  font-weight: bold;
+  font-size: 1.3em;
+  color: #222;
+  font-family: Arial, sans-serif;
+  letter-spacing: 1px;
+}
+.label.right {
+  left: auto;
+  right: 18px;
+}
+.label.jp {
+  font-size: 1.2em;
+  left: 32px;
+  top: 70px;
+  font-weight: normal;
+  font-family: "Noto Sans JP", sans-serif;
+}
+.label.jp.center {
+  left: 50%;
+  transform: translateX(-50%);
+}
+.label.jp.right {
+  left: auto;
+  right: 32px;
+}
+
+.labels-row {
+  display: flex;
+  justify-content: space-between;
+  width: 320px;
+  margin-bottom: 0;
+  position: relative;
+  pointer-events: none;
+  /* 文字をボタン枠の外に出すため下にマージンを追加 */
+  margin-bottom: 24px;
+  z-index: 2;
+}
+
+.labels-row .label.jp {
+  position: absolute;
+  top: -8px; /* 枠の外・上に移動 */
+  width: 68px;
+  text-align: center;
+  font-size: 1.3em;
+  font-family: Arial, "Noto Sans JP", sans-serif;
+  font-weight: bold;
+  color: #222;
+  letter-spacing: 1px;
+  background: transparent;
+  left: 0;
+  transform: none;
+}
+
+.labels-row .label.jp.center {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.labels-row .label.jp.right {
+  left: auto;
+  right: 0;
+  transform: none;
+}
+
+.round-btn {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: #e0e0e0; /* 単色に変更してはみ出しを防止 */
+  border: 6px solid #444;
+  box-shadow: 0 4px 12px #222 inset, 0 2px 4px #fff;
+  outline: none;
+  cursor: pointer;
+  transition: box-shadow 0.1s, border-color 0.1s, background 0.2s;
+  padding: 0;
+  box-sizing: border-box;
+  /* グラデーションや余計な影を抑える */
+  overflow: hidden;
+}
+.button-group.three .round-btn {
+  margin: 0;
+}
+.round-btn:active {
+  box-shadow: 0 2px 4px #222 inset, 0 1px 2px #fff;
+}
+.round-btn.glow {
+  border-color: #444;
+  background: radial-gradient(circle at 50% 50%, #b6ffb6 60%, #e0e0e0 100%);
+  box-shadow: 0 4px 12px #222 inset, 0 2px 4px #fff;
+}
